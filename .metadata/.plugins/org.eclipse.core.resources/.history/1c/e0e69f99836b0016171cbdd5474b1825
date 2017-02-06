@@ -1,0 +1,154 @@
+package fredneo;
+/**
+   * Description of class.
+   * <p>
+   * Copyright (c) ImpalaPay Ltd., Oct 28, 2015 
+   *
+   * @author <a href="mailto:kmuli@impalapay.com">Kelvin Muli M.</a>
+   *
+   */
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
+import java.util.UUID;
+import javax.net.ssl.HttpsURLConnection;
+
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+
+
+/**
+ * @author mulikevs
+ *
+ */
+public class teststring {
+ 
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+       
+        String currency = "EUR";
+        String hash= "5504f8dea35b68f46c872e842c51a0fd9b859a16";        
+        int IDProduct= 786;
+        String IDReseller = "impalapay.reseller.test@neosurf.com+soked3dpme";
+        String IDTransaction= "TRX002";        
+        int IDUser = 225;
+        int quantity = 1;
+        
+        teststring.SendImpalaPay(currency,hash,IDProduct,IDReseller,IDTransaction,IDUser,quantity);
+
+    }
+
+    public static void SendImpalaPay(String currency, String hash, int IDProduct, String IDReseller, String IDTransaction, int IDUser, int quantity  ) {
+
+     //String serviceId="";
+        try
+        {     
+         
+          Properties prop = new Properties();
+          InputStream input = null;
+             //input = new FileInputStream("config.properties");
+
+   // load a properties file
+   //prop.load(input);
+   
+ 
+       
+   //Url to post http/https
+        //String url = prop.getProperty("https://www.neosurf.info/soap/?wsdl");
+   String url = "https://www.neosurf.info/soap/?wsdl";
+        //String url = prop.getProperty("httpsURL"); 
+     
+
+        //Request String
+        String xml = "<soapenv:Envelope >"+
+   "<soapenv:Header/>"+
+   "<soapenv:Body>"+
+     " <soap:get_dtickets >"+
+       "  <currency  &quot; >EUR</currency>"+
+        " <hash >5504f8dea35b68f46c872e842c51a0fd9b859a16</hash>"+
+        " <IDProduct >786</IDProduct>"+
+        " <IDReseller >impalapay.reseller.test@neosurf.com+soked3dpme</IDReseller>"+
+         "<IDTransaction >TRX002</IDTransaction>"+
+         "<IDUser >225</IDUser>"+
+         "<quantity >1</quantity>"+
+     " </soap:get_dtickets>"+
+  " </soapenv:Body>"+
+"</soapenv:Envelope>";           
+     
+       
+       
+                 //
+                   
+                    /*
+                    Soap Call Posting the xml to the url;
+                    */
+       
+      
+                    URL obj = new URL(url);
+                    //Http
+                    //HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                    //https
+                    HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+                    //add reuqest header
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("content-type", "text/soap");
+                    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+                    // Send post request
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(xml);
+                    wr.flush();
+                    wr.close();
+
+                    int responseCode = con.getResponseCode();
+                    System.out.println("\nSending 'POST' request to URL : " + url);
+                    System.out.println("Post parameters : " + xml);
+                    System.out.println("Response Code : " + responseCode);
+
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    //Get Response
+                    StringBuffer response = new StringBuffer();
+
+                    while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                    }
+                    in.close();
+
+                 
+                
+                    System.out.println(response.toString());
+                   
+        }catch (Exception ee)
+        {
+            ee.printStackTrace();
+         
+        } 
+       
+       
+    }
+
+}
+	
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.jst.ws.client.type.java">
+		<item value="https://www.neosurf.info/soap/?wsdl"/>
+		<item value="https://www.carte-prepayee.fr/soap/?wsdl"/>
+		<item value="https://fcms.flocash.com/services/PayoutAPIService?wsdl"/>
+		<item value="http://t320webservices.open.ac.uk/t320/services/HelloService?wsdl"/>
+		<item value="http://127.0.0.1:8080/axis2/services/Version?wsdl"/>
+	</list>
+</section>

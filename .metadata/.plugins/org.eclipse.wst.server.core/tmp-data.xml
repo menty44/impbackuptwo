@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<temp-directories>
+  <temp-directory age="4" key="GlassFish 3.1 at localhost [domain1]" path="tmp1" recycle="true"/>
+  <temp-directory age="0" key="Tomcat v8.0 Server at localhost" path="tmp3" recycle="false"/>
+  <temp-directory age="2" key="J2EE Preview at localhost" path="tmp2" recycle="true"/>
+</temp-directories>

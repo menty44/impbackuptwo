@@ -1,0 +1,19 @@
+package com.javacodegeeks.drools;
+global String topicLevel
+rule "Drools Introduction"
+//when
+//$droolsIntro : DroolsIntroduction( topic == "Drools" )
+//then
+//System.out.println($droolsIntro.addition() + ", topic level is " + getDefaultIfNull(topicLevel)) ;
+//end
+//function String getDefaultIfNull(String topicLevel) {
+//return topicLevel == null ? "Moderate" : topicLevel;
+
+when
+$droolsintro : DroolsIntroduction( sum => 100 )
+then
+System.out.println($droolsintro.addition() + "equal to a hundred");
+end
+function String getDefaultIfNull(String topicLevel) {
+return topicLevel == null ? "Moderate" : topicLevel;
+}

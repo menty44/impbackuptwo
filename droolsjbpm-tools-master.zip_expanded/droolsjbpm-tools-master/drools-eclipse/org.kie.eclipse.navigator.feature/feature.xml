@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.kie.eclipse.navigator.feature"
+      label="%featurename"
+      version="7.0.0.qualifier"
+      provider-name="JBoss by Red Hat"
+      license-feature="org.jboss.tools.foundation.license.feature"
+      license-feature-version="0.0.0">
+
+   <description url="http://www.jboss.org/drools/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.egit.core"/>
+      <import plugin="org.eclipse.egit.ui"/>
+      <import plugin="org.eclipse.jgit"/>
+      <import plugin="org.kie.eclipse"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="com.jcraft.jsch"/>
+      <import plugin="org.drools.eclipse"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+   </requires>
+
+   <plugin
+         id="org.kie.eclipse.navigator"
+         download-size="0"
+         install-size="0"
+         version="7.0.0.qualifier"
+         unpack="false"/>
+
+</feature>

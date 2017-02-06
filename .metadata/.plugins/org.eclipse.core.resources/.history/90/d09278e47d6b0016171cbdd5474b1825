@@ -1,0 +1,23 @@
+package com.test;
+
+public class hello {
+	
+	private String mPrompt;
+    private String mAnswer;
+
+    public void fred(String prompt) {
+        mPrompt = "hello world";
+        
+        return mPrompt;
+        
+    }
+
+//    public String getPrompt() {
+//        return mPrompt;
+//    }
+
+//    public String getAnswer() {
+//        return mAnswer;
+//    }
+
+}

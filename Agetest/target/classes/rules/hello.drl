@@ -1,0 +1,31 @@
+//created on: Aug 4, 2016
+package rules
+
+//list any import classes here.
+import com.impala.drools.DroolsIntroduction;
+
+
+//declare any global variables here
+
+rule "Drools Introduction"
+
+
+    when
+        //conditions
+        $droolsIntro : DroolsIntroduction( topic == "Drools" )
+        
+    then
+        //actions
+        System.out.println($droolsIntro.introduceYourself());
+        
+
+end
+
+//rule "Your Second Rule"
+    //include attributes such as "salience" here...
+    //when
+        //conditions
+    //then
+        //actions
+
+//end

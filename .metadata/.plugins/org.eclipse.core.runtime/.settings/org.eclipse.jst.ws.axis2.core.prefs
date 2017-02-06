@@ -1,0 +1,4 @@
+axis2RuntimeLocation=/home/impala/Downloads/axis2/axis2-1.7.3
+cleintDatabinding=ADB
+eclipse.preferences.version=1
+serviceDatabinding=ADB

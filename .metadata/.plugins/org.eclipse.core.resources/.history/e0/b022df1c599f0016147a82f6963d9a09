@@ -1,0 +1,52 @@
+package com.fred.uat;
+
+/**
+ * SOAPMessageGetMimeHeaders.java
+ * Copyright (c) 2016 fredrick oluoch
+ * All rights reserved
+ */
+import java.io.*;
+import javax.xml.soap.*;
+public class SOAPClientSAAJ {
+   public static void main(String[] args) {
+      PrintStream out = System.out;
+
+// Checking command line arguments
+      if (args.length < 1) {
+         out.println("Usage:");
+         out.println("java SOAPMessageGetMimeHeaders url");
+         return;
+      }
+      String sURL = args[0];
+
+      try {
+// Creating a new empty SOAP message object
+         SOAPMessage reqMsg
+            = MessageFactory.newInstance().createMessage();
+
+// Populating SOAP body
+         String prefix = "tns";
+         String uri = "http://xmlme.com/WebServices";
+         SOAPEnvelope envelope = reqMsg.getSOAPPart().getEnvelope();
+         SOAPBody body = envelope.getBody();
+         SOAPBodyElement service = body.addBodyElement(
+            envelope.createName("GetSpeech", prefix, uri));
+         SOAPElement param = service.addChildElement(
+            envelope.createName("Request", prefix, uri));
+         param.addTextNode("To be, or not to be");
+
+// Setting SOAPAction header line
+         MimeHeaders headers = reqMsg.getMimeHeaders();
+         headers.addHeader("SOAPAction", uri+"/GetSpeech");
+
+// Connecting and calling
+	 SOAPConnection con 
+	    = SOAPConnectionFactory.newInstance().createConnection();
+         SOAPMessage resMsg = con.call(reqMsg, sURL);
+         con.close();
+         if (resMsg != null) out.println("Response received!");
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}

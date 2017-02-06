@@ -1,0 +1,27 @@
+package com.fred.test;
+
+public class quora {
+
+	public static void main(String[] args) {
+		
+//		int firstW = 10;
+//		int secondW = 30;
+//		// TODO Auto-generated method stub
+//		int firstlength = firstW.length();
+//		int secondlength = secondW.length();
+//		int count 0;
+//		
+//		int both = firstW + secondW;
+//		
+//		while (both < 30) {
+//			System.out.println(".");
+//			count = count + 1;
+			
+		}
+		
+		
+		
+
+	}
+
+

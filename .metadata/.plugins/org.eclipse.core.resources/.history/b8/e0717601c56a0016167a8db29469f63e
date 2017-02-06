@@ -1,0 +1,56 @@
+package com.impala.webservices;
+
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.SOAPHeader;
+
+public class testSAAJ {
+	
+	public static void main (String[]args){
+		
+		  // Create the message
+		  MessageFactory factory = MessageFactory.newInstance(protocol);
+		  SOAPMessage requestMessage = factory.createMessage();
+
+		  // Add a header
+		  SOAPHeader header = requestMessage.getSOAPHeader();
+		  QName headerName = new QName("http://ws-i.org/schemas/conformanceClaim/", "Claim", "wsi");
+		  SOAPHeaderElement headerElement = header.addHeaderElement(headerName);
+		  headerElement.addAttribute(new QName("conformsTo"), "http://ws-i.org/profiles/basic/1.1/");
+
+		  // Add a body
+		  QName bodyName = new QName("http://wombat.ztrade.com", "GetLastTradePrice", "m");
+		  SOAPBody body = requestMessage.getSOAPBody();
+		  SOAPBodyElement bodyElement = body.addBodyElement(bodyName);
+		  QName name = new QName("symbol");
+		  SOAPElement symbol = bodyElement.addChildElement(name);
+		  symbol.addTextNode("SUNW");
+
+		  // Add an attachment
+		  AttachmentPart attachment = requestMessage.createAttachmentPart();
+		  String stringContent =
+		      "Update address for Sunny Skies " + "Inc., to 10 Upbeat Street, Pleasant Grove, CA 95439";
+		  attachment.setContent(stringContent, "text/plain");
+		  attachment.setContentId("update_address");
+		  requestMessage.addAttachmentPart(attachment);
+
+		  // Add another attachment
+		  URL url = new URL("http://greatproducts.com/gizmos/img.jpg");
+		  // URL url = new URL("file:///etc/passwords");
+		  DataHandler dataHandler = new DataHandler(url);
+		  AttachmentPart attachment2 = requestMessage.createAttachmentPart(dataHandler);
+		  attachment2.setContentId("attached_image");
+		  requestMessage.addAttachmentPart(attachment2);
+
+		  // Send the message
+		  SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
+		  SOAPConnection connection = soapConnectionFactory.createConnection();
+		  URL endpoint = new URL("http://wombat.ztrade.com/quotes");
+
+		  // Get the response. Our mock url-fetch handler will echo back the request
+		  SOAPMessage responseMessage = connection.call(requestMessage, endpoint);
+		  connection.close();
+
+		  assertEquals(requestMessage, responseMessage);
+	}
+
+}

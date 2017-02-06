@@ -1,0 +1,60 @@
+package com.apache.commons;
+
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+
+public class testemail {
+	
+	public static void main (String[]args){
+		
+		try {
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.debug", "false");
+            props.put("mail.smtp.ssl.enable", "true");
+
+            Session session = Session.getInstance(props, new EmailAuth());
+            Message msg = new MimeMessage(session);
+
+            InternetAddress from = new InternetAddress("sendersEmailAddress", "Sender's name");
+            msg.setFrom(from);
+
+            InternetAddress toAddress = new InternetAddress("Receiver's email");
+
+            msg.setRecipient(Message.RecipientType.TO, toAddress);
+
+            msg.setSubject("Test");
+            msg.setContent(msg.setContent("<html>\n" +
+                    "<body>\n" +
+                    "\n" +
+                    "<a href=\"http://pushpalankajaya.blogspot.com\">\n" +
+                    "This is a link</a>\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>", "text/html");, "text/html");
+            Transport.send(msg);
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    static class EmailAuth extends Authenticator {
+
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication() {
+
+            return new PasswordAuthentication("menty44@gmail.com", "XZB9O6G8fred.");
+
+        }
+    }
+	}
+
+}

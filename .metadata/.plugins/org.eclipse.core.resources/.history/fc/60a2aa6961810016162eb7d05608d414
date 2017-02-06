@@ -1,0 +1,79 @@
+package com.javacodegeeks.drools;
+
+import java.util.Scanner;
+
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
+/**
+ * This is a sample class to launch a rule.
+ */
+public class DroolsIntroduction {
+    private String topic;
+    
+    public DroolsIntroduction(String topic) {
+        this.topic = topic;
+    }
+
+    public static final void main(String[] args) {
+        try {
+            // load up the knowledge base
+            KieServices ks = KieServices.Factory.get();
+            KieContainer kContainer = ks.getKieClasspathContainer();
+            KieSession kSession = kContainer.newKieSession("ksession-rules");
+
+            DroolsIntroduction droolsIntroduction = new DroolsIntroduction("Drools");            
+            kSession.insert(droolsIntroduction);
+            kSession.insert(new DroolsIntroduction("spring"));
+            kSession.insert(new DroolsIntroduction("Drools"));
+            kSession.fireAllRules();
+            
+            kSession.setGlobal("topicLevel", "Beginner");
+            kSession.insert(new DroolsIntroduction("Drools"));
+            kSession.fireAllRules();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+        
+    public String introduceYourself() {
+        return "Drools 6.2.0.Final";
+    }
+    
+    public int addition() {
+
+    	Scanner s = new Scanner(System.in);
+        System.out.print("Enter first number: ");
+        int firstNumber = s.nextInt();
+        System.out.print("Enter second number: ");
+        int secondNumber = s.nextInt();
+        int sum = firstNumber + secondNumber;
+        System.out.println("The result of addition was " + sum);
+
+    	return sum;
+    }
+    
+    public String namecheck(){
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter your First Name : ");
+    }
+    
+    public String fred() {
+        return "fred";
+    }
+}
+
+
+
+
+
+
+
+
+
+

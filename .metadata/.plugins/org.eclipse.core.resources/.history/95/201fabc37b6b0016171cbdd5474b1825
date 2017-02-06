@@ -1,0 +1,9 @@
+package com.test;
+
+public class hello {
+	
+	public void demo{
+		String fred = "hello impalapay";
+	}
+
+}

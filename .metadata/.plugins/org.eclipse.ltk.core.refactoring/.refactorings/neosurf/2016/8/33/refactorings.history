@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;neosurf&apos;&#x0A;- Original project: &apos;neosurf&apos;&#x0A;- Original element: &apos;neosurf/src/t320.nks34&apos;" description="Delete element" element1="/src&lt;t320.nks34" element2="/src&lt;t320" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1470922418828" subPackages="false" version="1.0"/>
+</session>

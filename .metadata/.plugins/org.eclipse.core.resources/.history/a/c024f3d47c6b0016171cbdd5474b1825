@@ -1,0 +1,16 @@
+package com.test;
+
+import com.test.hello;
+
+public class testmain {
+	
+	public static void main(String []args) {
+		
+		hello dan = new hello();
+		dan.Question(prompt);
+		
+		//System.out.println(prompt);
+		
+	}
+
+}

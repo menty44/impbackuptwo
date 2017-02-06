@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="currency">
+        <property name="context-root" value="currency"/>
+        <property name="java-output-path" value="/currency/build/classes"/>
+    </wb-module>
+</project-modules>

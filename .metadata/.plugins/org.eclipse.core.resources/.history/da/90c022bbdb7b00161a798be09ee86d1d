@@ -1,0 +1,28 @@
+package com.apache.commons;
+
+public class testemail {
+	
+	public static void main (String[]args){
+		
+		HtmlEmail email = new HtmlEmail();
+        email.setHostName("smtp.gmail.com");
+        email.setSmtpPort(465);
+        email.setAuthenticator(new DefaultAuthenticator("menty44@gmail.com", "XZB9O6G8fred."));
+        email.setSSLOnConnect(true);
+        email.setFrom("Senders' email");
+        email.setSubject("TestMail- Alternative message");
+        email.setHtmlMsg("<html>\n" +
+                "<body>\n" +
+                "\n" +
+                "<a href=\"http://pushpalankajaya.blogspot.com\">\n" +
+                "This is a link</a>\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>");
+        // set the alternative message
+        email.setTextMsg("This is a link: http://pushpalankajaya.blogspot.com");
+        email.addTo("fred.oluoch@impalapay.com");
+        email.send();
+	}
+
+}

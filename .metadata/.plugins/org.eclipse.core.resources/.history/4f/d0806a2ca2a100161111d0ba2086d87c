@@ -1,0 +1,102 @@
+package com.fred.test;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class dom {
+	public static void main(String argv[]) throws ParserConfigurationException, TransformerException {
+		
+		DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+
+		DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+
+		Document document = documentBuilder.newDocument();
+
+		// root element
+		Element root = document.createElement("RMGetExchangeRates");
+		document.appendChild(root);
+		
+		Attr attr = document.createAttribute("xmlns");
+		attr.setValue("http://tempuri.org/");
+		root.setAttributeNode(attr);
+		
+
+		// GetExchReQ element
+		Element GetExchReQ = document.createElement("GetExchReQ");
+
+		root.appendChild(GetExchReQ);
+
+		// set an attribute to staff element
+//		Attr attr = document.createAttribute("");
+//		attr.setValue("");
+		//GetExchReQ.setAttributeNode(attr);
+
+		//you can also use staff.setAttribute("id", "1") for this
+
+		// firstname element
+		Element LoginCode = document.createElement("LoginCode");
+		LoginCode.appendChild(document.createTextNode("ILT"));
+		GetExchReQ.appendChild(LoginCode);
+
+		// lastname element
+		Element AgentCode = document.createElement("AgentCode");
+		AgentCode.appendChild(document.createTextNode("ILT"));
+		GetExchReQ.appendChild(AgentCode);
+
+		// email element
+		Element UserCode = document.createElement("UserCode");
+		UserCode.appendChild(document.createTextNode("ILT18745"));
+		GetExchReQ.appendChild(UserCode);
+
+		// department elements
+		Element Password = document.createElement("Password");
+		Password.appendChild(document.createTextNode("Welcome@252"));
+		GetExchReQ.appendChild(Password);
+		
+		// lastname element
+		Element ProductID = document.createElement("ProductID");
+		ProductID.appendChild(document.createTextNode("1"));
+		GetExchReQ.appendChild(ProductID);
+
+		// email element
+		Element DestinationCurrency = document.createElement("DestinationCurrency");
+		DestinationCurrency.appendChild(document.createTextNode("USD"));
+		GetExchReQ.appendChild(DestinationCurrency);
+
+		// department elements
+		Element SourceCurrency = document.createElement("SourceCurrency");
+		SourceCurrency.appendChild(document.createTextNode("USD"));
+		GetExchReQ.appendChild(SourceCurrency);
+
+		// create the xml file
+		//transform the DOM Object to an XML File
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource domSource = new DOMSource(document);
+		//StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+		
+		// Output to console for testing
+        StreamResult consoleResult =  new StreamResult(System.out);
+
+		// If you use
+		// StreamResult result = new StreamResult(System.out);
+		// the output will be pushed to the standard output ...
+		// You can use that for debugging 
+		
+		transformer.transform(domSource, 
+				//streamResult
+				consoleResult);
+	}
+
+}

@@ -1,0 +1,21 @@
+package com.test;
+
+import com.test.hello;
+
+public class testmain {
+	
+	public static void main(String []args) {
+		
+		
+		
+		
+		
+		//System.out.println(prompt);
+		
+	}
+	
+	public int add(){
+		
+	}
+
+}

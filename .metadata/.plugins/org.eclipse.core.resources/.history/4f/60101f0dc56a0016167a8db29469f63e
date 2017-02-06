@@ -1,0 +1,132 @@
+/**
+ * 
+ */
+package com.impala.webservices;
+
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.SOAPPart;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+
+import jdk.nashorn.internal.runtime.Source;
+
+/**
+ * @author fred
+ *
+ */
+public class get_dtickets {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		try {
+            // Create SOAP Connection
+            SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
+            SOAPConnection soapConnection = soapConnectionFactory.createConnection();
+
+            // Send SOAP Message to SOAP Server
+            String url = " https://www.neosurf.info/soap/?wsdl";
+            SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(), url);
+
+            // Process the SOAP Response
+            printSOAPResponse(soapResponse);
+
+            soapConnection.close();
+        } catch (Exception e) {
+            System.err.println("Error occurred while sending SOAP Request to Server");
+            e.printStackTrace();
+        }
+    }
+
+    private static SOAPMessage createSOAPRequest() throws Exception {
+        MessageFactory messageFactory = MessageFactory.newInstance();
+        SOAPMessage soapMessage = messageFactory.createMessage();
+        SOAPPart soapPart = soapMessage.getSOAPPart();
+
+        String serverURI = "http://ws.cdyne.com/";
+
+        // SOAP Envelope
+        SOAPEnvelope envelope = soapPart.getEnvelope();
+        envelope.addNamespaceDeclaration("example", serverURI);
+
+        /*
+        Constructed SOAP Request Message:
+        <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="https://www.neosurf.info/soap/">
+		   <soapenv:Header/>
+		   <soapenv:Body>
+		      <soap:get_dtickets soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+		         <currency xsi:type="xsd:string">EUR</currency>
+		         <hash xsi:type="xsd:string">?</hash>
+		         <IDProduct xsi:type="xsd:int">1</IDProduct>
+		         <IDReseller xsi:type="xsd:string">impalapay.reseller.test@neosurf.com+soked3dpme</IDReseller>
+		         <IDTransaction xsi:type="xsd:string">TRX001</IDTransaction>
+		         <IDUser xsi:type="xsd:int">225</IDUser>
+		         <quantity xsi:type="xsd:int">1</quantity>
+		      </soap:get_dtickets>
+		   </soapenv:Body>
+		</soapenv:Envelope>
+         */
+
+        // SOAP Body
+        SOAPBody soapBody = envelope.getBody();
+       // SOAPElement soapBodyElem = soapBody.addChildElement("get_dtickets", "soap");
+//        
+//        SOAPElement soapBodyElem1 = soapBodyElem.addChildElement("currency", "soap");
+//        soapBodyElem1.addTextNode("EUR");
+//        
+//        SOAPElement soapBodyElem2 = soapBodyElem.addChildElement("hash", "soap");
+//        soapBodyElem2.addTextNode("zsdgszdgsz4aw4fsg9szd69g875sz67586d");
+//        
+//        SOAPElement soapBodyElem3 = soapBodyElem.addChildElement("IDProduct", "soap");
+//        soapBodyElem3.addTextNode("1");
+//        
+//        SOAPElement soapBodyElem4 = soapBodyElem.addChildElement("IDReseller", "soap");
+//        soapBodyElem4.addTextNode("impalapay.reseller.test@neosurf.com+soked3dpme");
+//        
+//        SOAPElement soapBodyElem5 = soapBodyElem.addChildElement("IDTransaction", "soap");
+//        soapBodyElem5.addTextNode("TRX001");
+//        
+//        SOAPElement soapBodyElem6 = soapBodyElem.addChildElement("IDUser", "example");
+//        soapBodyElem6.addTextNode("225");
+//        
+//        SOAPElement soapBodyElem7 = soapBodyElem.addChildElement("quantity", "example");
+//        soapBodyElem7.addTextNode("1");
+        
+        
+
+        MimeHeaders headers = soapMessage.getMimeHeaders();
+        headers.addHeader("SOAPAction", serverURI  + "VerifyEmail");
+
+        soapMessage.saveChanges();
+
+        // Print the request message /
+        System.out.print("Request SOAP Message = ");
+        soapMessage.writeTo(System.out);
+        System.out.println();
+
+        return soapMessage;
+    }
+
+    /**
+     * Method used to print the SOAP Response
+     */
+    private static void printSOAPResponse(SOAPMessage soapResponse) throws Exception {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        javax.xml.transform.Source sourceContent = soapResponse.getSOAPPart().getContent();
+        System.out.print("\nResponse SOAP Message = ");
+        StreamResult result = new StreamResult(System.out);
+        transformer.transform(sourceContent, result);
+    }	
+
+}

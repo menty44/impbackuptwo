@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:neosurf" serverId="GlassFish 3.1 at localhost [domain1]"/>
+  <module moduleId="org.eclipse.jst.jee.server:cyclosfred" serverId="Tomcat v8.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:MVCApplication" serverId="WildFly 10.01471849604025"/>
+  <module moduleId="org.eclipse.jst.jee.server:neosurfclient" serverId="GlassFish 3.1 at localhost [domain1]"/>
+  <module moduleId="org.eclipse.jst.jee.server:royal" serverId="WildFly 10.01471849604025"/>
+  <module moduleId="org.eclipse.jst.jee.server:mpesa" serverId="WildFly 10.01471849604025"/>
+</modules>

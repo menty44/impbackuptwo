@@ -1,0 +1,84 @@
+ 
+  /**
+   * Description of class.
+   * <p>
+   * Copyright (c) ImpalaPay Ltd., Jan 26, 2017  
+   * 
+   * @author <a href="mailto:kmuli@impalapay.com">Kelvin Muli M.</a>
+   * 
+   */
+package com.impalapay.digital.controls.members;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.Gson;
+import com.impalapay.digital.beans.members.MemberDetailsBean;
+
+
+import com.impalapay.digital.persistence.members.MemberDetailsDAOImpl;
+
+/**
+ * @author mulikevs
+ *
+ */
+public class GetMemberHandler {
+	
+	private final MemberDetailsDAOImpl memberDetailDAOImpl;
+
+	//private final Gson g;
+	private Map<String, String> expected = new HashMap<>();
+	private String jsonResult = "", memberuuid = "", subclass = "",useruuid="";
+
+	public GetMemberHandler() {
+		memberDetailDAOImpl = MemberDetailsDAOImpl.getInstance();
+		
+
+	}
+	
+	public String handlegetMember(MemberDetailsBean memberDetailBean) {
+		
+
+		Gson g = new Gson();
+		
+		
+		if (!getMember(memberDetailBean)) {
+			expected.put("command_status", "S400");
+			expected.put("status_description", "unable to add new member");
+			jsonResult = g.toJson(expected);
+		} else {
+			expected.put("command_status", "S000");
+			expected.put("status_description", "success");
+			jsonResult = g.toJson(expected);
+		}
+
+		return jsonResult;
+		
+
+		
+
+	}
+	
+	
+	private List<MemberDetailsBean> getMember(String uuid) {
+		List<MemberDetailsBean> list = new ArrayList<>();
+		
+		MemberDetailsBean member = new MemberDetailsBean();
+		
+		
+				list = memberDetailDAOImpl.getMemberDetails(uuid);
+					
+				
+		
+		
+
+		return list;
+
+	}
+
+}

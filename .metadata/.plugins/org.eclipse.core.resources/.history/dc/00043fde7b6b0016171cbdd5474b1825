@@ -1,0 +1,19 @@
+package com.test;
+
+public class hello {
+	
+	public void demo{
+		String mPrompt = "hello impalapay";
+		String mAnswer = "hello impalapay";
+		
+	}
+	
+	public String getPrompt() {
+        return mPrompt;
+    }
+
+    public String getAnswer() {
+        return mAnswer;
+    }
+
+}

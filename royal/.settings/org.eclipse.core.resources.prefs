@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/org/tempuri/Authenticate.java=UTF-8
+encoding//src/org/tempuri/CancelTransactionReq.java=UTF-8
+encoding//src/org/tempuri/CancelTransactionRes.java=UTF-8
+encoding//src/org/tempuri/CheckStatusReq.java=UTF-8
+encoding//src/org/tempuri/CheckStatusRes.java=UTF-8
+encoding//src/org/tempuri/GetExchangeRatesReq.java=UTF-8
+encoding//src/org/tempuri/GetExchangeRatesRes.java=UTF-8
+encoding//src/org/tempuri/GetTransactionReq.java=UTF-8
+encoding//src/org/tempuri/GetTransactionRes.java=UTF-8
+encoding//src/org/tempuri/RMService.java=UTF-8
+encoding//src/org/tempuri/RMServiceLocator.java=UTF-8
+encoding//src/org/tempuri/RMServiceSoap.java=UTF-8
+encoding//src/org/tempuri/RMServiceSoapStub.java=UTF-8
+encoding//src/org/tempuri/RemittanceReQ.java=UTF-8
+encoding//src/org/tempuri/RemittanceReS.java=UTF-8
+encoding//src/org/tempuri/SenderCreateREQ.java=UTF-8

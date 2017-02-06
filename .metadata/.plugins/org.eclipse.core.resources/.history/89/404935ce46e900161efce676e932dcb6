@@ -1,0 +1,126 @@
+package com.impalapay.digital.controls.members;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.impalapay.digital.beans.members.MemberBean;
+import com.impalapay.digital.beans.members.RegisterMemberBean;
+import com.impalapay.digital.beans.members.UserBean;
+import com.impalapay.digital.persistence.members.MemberDAOImpl;
+import com.impalapay.digital.persistence.members.UserDAOImpl;
+
+/**
+ * 
+ * <p>
+ * Copyright (c) ImpalapayLtd.
+ * 
+ * @author <a href="mailto:eugene@impalapay.com">Eugene Chimita</a>
+ * 
+ */
+public class RegisterMemberHandler {
+
+	private final UserDAOImpl userImplDAO;
+	private final MemberDAOImpl memberImplDAO;
+	//private final Gson g;
+	private Map<String, String> expected = new HashMap<>();
+	private String jsonResult = "", memberuuid = "", subclass = "",useruuid="";
+
+	public RegisterMemberHandler() {
+		userImplDAO = UserDAOImpl.getInstance();
+		memberImplDAO = MemberDAOImpl.getInstance();
+		//g = new GsonBuilder().disableHtmlEscaping().create();
+
+	}
+
+	public String handlenewmember(RegisterMemberBean registerMemberBean) {
+
+		 Gson g = new Gson();
+		if (existsUniqueName(registerMemberBean.getUsername())) {
+			expected.put("command_status", "S400");
+			expected.put("status_description", "the provided username exist");
+			jsonResult = g.toJson(expected);
+
+		} else if (existsEmail(registerMemberBean.getUseremail())) {
+			expected.put("command_status", "S400");
+			expected.put("status_description", "the provided email exist");
+
+		} else if (!addUser(registerMemberBean)) {
+			expected.put("command_status", "S400");
+			expected.put("status_description", "unable to add new member");
+			jsonResult = g.toJson(expected);
+		} else {
+			expected.put("command_status", "S000");
+			expected.put("status_description", "success");
+			jsonResult = g.toJson(expected);
+		}
+
+		return jsonResult;
+	}
+
+	private boolean addUser(RegisterMemberBean registredmember) {
+		memberuuid = StringUtils.remove(UUID.randomUUID().toString(), '-');
+		subclass = "M";
+		MemberBean m = new MemberBean();
+		UserBean a = new UserBean();
+		m.setUuid(memberuuid);
+		m.setSubclass(subclass);
+		m.setEmail(registredmember.getUseremail());
+		m.setCreationdate(registredmember.getDateadded());
+		m.setGroupuuid("c3396320e3644590b82506b2fbf0aef2");
+		
+		//if adding member successfuull now add user to database
+		if(memberImplDAO.addMember(m)){
+			useruuid = StringUtils.remove(UUID.randomUUID().toString(), '-');
+			a.setUuid(useruuid);
+			a.setMemberuuid(memberuuid);
+			a.setSubclass(subclass);
+			a.setSalt("hsdjsdhjdhsj");
+			a.setUsername(registredmember.getUsername());
+			a.setPassword(registredmember.getPassword());
+			a.setPassworddate(registredmember.getDateadded());
+			
+		}else{
+			return false;
+		}
+
+		return userImplDAO.AddUser(a);
+
+	}
+
+	/**
+	 *
+	 * @param name
+	 * @return whether or not the unique name exists in the system
+	 */
+	private boolean existsUniqueName(final String name) {
+		boolean exists = false;
+
+		if (userImplDAO.loadByUsername(name) != null) {
+			exists = true;
+		}
+
+		return exists;
+	}
+
+	/**
+	 *
+	 * @param email
+	 * @return whether or not the unique name exists in the system
+	 */
+	private boolean existsEmail(final String email) {
+		boolean exists = false;
+
+		if (memberImplDAO.loadbymemberEmail(email) != null) {
+			exists = true;
+		}
+
+		return exists;
+	}
+
+}

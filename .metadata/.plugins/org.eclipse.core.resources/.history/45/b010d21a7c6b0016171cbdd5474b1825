@@ -1,0 +1,14 @@
+package com.test;
+
+public class testmain {
+	
+	public static void main(String []args) {
+		
+		hello dan = new hello();
+		dan.Question(prompt, answer);
+		
+		System.out.println(prompt);
+		
+	}
+
+}

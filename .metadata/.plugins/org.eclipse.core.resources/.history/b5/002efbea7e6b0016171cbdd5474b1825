@@ -1,0 +1,30 @@
+package com.test;
+
+import com.test.hello;
+
+public class testmain {
+	
+	public static  int main(String []args) {
+		
+		try {
+			
+//			hello dan = new hello();
+//			dan.fred(prompt);
+			int i = 10;
+			int j = 20;
+			int f = i+j;
+			
+			//return f;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return f;
+		
+		
+		
+		//System.out.println(prompt);
+		
+	}
+
+}
